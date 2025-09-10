@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Jobs at JavaJam</title>
-    <link rel="stylesheet" href="styles/main.css">
-</head>
-<body>
-    <header>
-        <h1>JavaJam Coffee House</h1>
-    </header>
+    <head>
+        <title>JavaJam Coffee House</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="./styles/styling.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <img src="./assets/header.png" id="centered" alt="header" width="500">
+            </header>
+            <div id="leftcolumn">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="jobs.html" class="active-page">Jobs</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="rightcolumn">
+                <div class="content">
+                    <h2>Jobs at JavaJam</h2>
+                    <p>Want to work at JavaJam? Fill out the form below to start your application. Required fields are marked with an asterisk *</p>
+                    <form method="get" action="show_get.php">
+                        <table border="0">
+                            <tr>
+                                <td id="form-label"><label for="myName">*Name:</label></td>
+                                <td id="table-rightcol"><input type="text" name="myName" size="25" id="myName" required placeholder="Enter your name here"><br></td>
+                            </tr>
+                            <tr>
+                                <td id="form-label"><label for="myEmail">*E-mail:</label></td>
+                                <td id="table-rightcol"><input type="text" name="myEmail" size="25" id="myEmail" required placeholder="Enter your Email-ID here"><br></td>
+                            </tr>
+                            <tr>
+                                <td id="form-label"><label for="startDate">Start Date:</label></td>
+                                <td id="table-rightcol"><input type="date" name="startDate" id="startDate"><br></td>
+                            </tr>
+                            <tr>
+                                <td id="form-label"><label for="myExp">*Experience:</label></td>
+                                <td id="table-rightcol"><textarea type="textarea" name="myExp" rows="4" cols="40" required placeholder="Enter your past experience here"></textarea><br></td>
+                            </tr>
+                        </table>
+                        <input type="reset" value="Clear"><br><br>
+                        <input type="submit" value="Apply Now"><br><br>
 
-    <nav>
-        <b>
-            <div class="navbar">
-                <a href="index.html">Home</a> &nbsp; 
+</form>
+                </div>
             </div>
-            <div class="navbar">
-                <a href="menu.html">Menu</a> &nbsp; 
-            </div>
-            <div class="navbar">
-                <a href="Music.html">Music</a> &nbsp;
-            </div>
-            <div class="navbar">
-                <a href="jobs.html">Jobs</a> &nbsp; 
-            </div>
-        </b>
-    </nav>
-    <div>
-        <br><dt>We are hiring!</dt>
-            <ol>
-                <li>Manager</li>
-                <li>DJ</li>
-            </ol>
-    </div>
-    <footer>
-        <small><i>Copyright &copy; 2014 JavaJam Coffeee House</i></small>
-        <br>
-        <small><a href="www.gmail.com">HoaWing@Beh.com</a></small>
-    </footer>
-</body>
+            <footer>
+                <small><i>Copyright &copy; 2025 JavaJam Coffee House</i></small>
+                <br>
+                <small><i>Email: <a href="mail:hbeh001@e.ntu.edu.sg">hbeh001@e.ntu.edu.sg</a></i></small>
+            </footer>
+        </div>
+    </body>
 </html>

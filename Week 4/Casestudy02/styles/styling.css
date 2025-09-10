@@ -1,0 +1,134 @@
+body {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#wrapper {
+    background-color: #E2D1B2; 
+    color: #000066;
+    width: 80%;
+    margin: auto;
+    min-width:800px;
+} 
+header {
+    display: flex;
+    background-color: #D0B38D;
+    color: #00005D; 
+    font-size: 150%; 
+    padding: 10px 10px 10px 185px;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    padding: 10px;
+    background-color: #D0B38D;
+    font-size: 70%;
+    text-align: center;
+    clear: right;
+    padding-bottom: 20px;
+}
+h2 {
+    color: #2C0000; 
+    font-family: arial, sans-serif;
+}
+
+/* Navigation bar */
+nav {
+    position: fixed;
+}	
+nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+nav a {
+    text-decoration: none;
+    color: #A48269;
+    font-weight: bold;
+}
+nav ul li a.active-page
+{
+    color:#5c320e;
+}
+
+/* Two columns styling */
+#leftcolumn {
+    float: left;
+    width: 150px;
+    text-align: center;
+    color: #D0B38D;
+} 
+#rightcolumn {
+    margin-left: 155px;
+    background-color: #ffffff;
+    color: #340405;
+} 
+
+#img {
+    margin: auto;
+}
+#centered {
+    margin: auto;
+}
+
+/* HOME PAGE CLASSES AND IDS */
+.content {
+    padding: 20px 20px 0 20px; 
+    background-color: #F5F4DD;
+    min-height: 300px;
+} 
+#content-left {
+    float: left;
+    min-height: 160px;
+}
+
+#floatleft {
+    display: block;
+    margin: 0 auto; /* centers horizontally */
+    height: 160px;
+}
+
+#flexed {
+    display: flex;
+}
+
+#homeul {
+    list-style: none; /* remove default bullet */
+    padding-left: 30px; /* leave space for the image */
+}
+
+#homeul li {
+    background: url("../assets/cute-coffee.png") no-repeat left center;
+    background-size: 20px 20px; /* resize */
+    padding-left: 30px; /* space between image and text */
+}
+
+#address {
+    padding-left: 30px;
+}
+
+/* TABLE STYLINGS FOR MENU, MUSIC AND JOBS */
+#table-row-1{ /*for darker color rows*/
+    background-color: #D0B38D;
+    padding: 20px;
+}
+#table-leftcol {
+    text-align: center;
+    font-weight: bold;
+    font-size: 110%;
+}
+#table-rightcol {
+    padding: 10px;
+}
+#table-colspan { /*for month in Music page*/
+    text-align: left;
+    font-weight: bold;
+    font-size: 110%;
+}
+
+/* FORM STYLINGS FOR JOBS PAGE */
+#form-label {
+    text-align: right;
+}
