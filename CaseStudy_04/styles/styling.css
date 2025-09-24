@@ -185,6 +185,12 @@ nav ul li a.active-page
     background-color: #D0B38D;
     padding: 20px;
 }
+#quantity-col {
+    width: 60px;
+}
+#total-price {
+    width: 60px;
+}
 #table-leftcol {
     text-align: center;
     font-weight: bold;

@@ -32,18 +32,6 @@ function validateForm(event) {
             errorMsg += 'Start date must be in the future (after today).\n';
         }
     }
-
-    // 5. Experience validation: cannot be empty
-    if (!exp.value.trim()) {
-        errorMsg += 'Experience field cannot be empty.\n';
-    }
-
-    if (errorMsg) {
-        alert(errorMsg);
-        event.preventDefault();
-        return false;
-    }
-    return true;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
