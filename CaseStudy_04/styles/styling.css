@@ -1,13 +1,18 @@
 body {
     font-family: Verdana, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #wrapper {
     background-color: #E2D1B2; 
     color: #000066;
-    width: 80%;
+    width: 90%;
+    max-width: 1200px;
     margin: auto;
-    min-width:800px;
+    min-width: 320px;
+    box-sizing: border-box;
 } 
 
 header {
@@ -36,7 +41,8 @@ h2 {
 /* Navigation bar */
 nav {
     position: fixed;
-}	
+    z-index: 1000;
+}   
 nav ul {
     list-style-type: none;
     display: flex;
@@ -60,12 +66,76 @@ nav ul li a.active-page
     width: 150px;
     text-align: center;
     color: #D0B38D;
+    box-sizing: border-box;
 } 
 #rightcolumn {
     margin-left: 155px;
     background-color: #ffffff;
     color: #340405;
+    box-sizing: border-box;
 } 
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    #wrapper {
+        width: 98%;
+        min-width: 0;
+    }
+    #leftcolumn {
+        width: 100px;
+    }
+    #rightcolumn {
+        margin-left: 105px;
+    }
+    header {
+        padding-left: 100px;
+        font-size: 120%;
+    }
+}
+
+@media (max-width: 700px) {
+    nav {
+        position: static;
+    }
+    #leftcolumn {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    #rightcolumn {
+        margin-left: 0;
+    }
+    header {
+        padding: 10px;
+        font-size: 110%;
+    }
+    #wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        font-size: 90%;
+    }
+    header {
+        font-size: 100%;
+        flex-direction: column;
+        padding: 8px;
+    }
+    #leftcolumn, #rightcolumn, .content {
+        width: 100%;
+        margin: 0;
+        float: none;
+        box-sizing: border-box;
+    }
+    nav ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
 
 #img {
     margin: auto;
