@@ -1,24 +1,24 @@
 function updateCoffeePrice() {
 	// Prices for each coffee item
-	var prices = {
+	const prices = {
 		JustJava: 22.00,
 		CafeAuLait: { single: 2.00, double: 3.00 },
 		IcedCappucino: { single: 4.75, double: 5.75 }
 	};
 
 	// Get quantity inputs
-	var qtyJava = document.querySelector('input[name="quantity-col-JustJava"]');
-	var qtyAuLait = document.querySelector('input[name="quantity-col-CafeAuLait"]');
-	var qtyCappuccino = document.querySelector('input[name="quantity-col-IcedCappucino"]');
+	const qtyJava = document.querySelector('input[name="quantity-col-JustJava"]');
+	const qtyAuLait = document.querySelector('input[name="quantity-col-CafeAuLait"]');
+	const qtyCappuccino = document.querySelector('input[name="quantity-col-IcedCappucino"]');
 
 	// Get radio buttons for shot selection
-	var shotAuLait = document.querySelector('input[name="shot-CafeAuLait"]:checked');
-	var shotCappuccino = document.querySelector('input[name="shot-IcedCappucino"]:checked');
+	const shotAuLait = document.querySelector('input[name="shot-CafeAuLait"]:checked');
+	const shotCappuccino = document.querySelector('input[name="shot-IcedCappucino"]:checked');
 
 	// Get total price cells
-	var priceJava = document.getElementById('price-JustJava');
-	var priceAuLait = document.getElementById('price-CafeAuLait');
-	var priceCappuccino = document.getElementById('price-IcedCappucino');
+	const priceJava = document.getElementById('price-JustJava');
+	const priceAuLait = document.getElementById('price-CafeAuLait');
+	const priceCappuccino = document.getElementById('price-IcedCappucino');
 
 	// Init total price
 	let javaTotal = 0, auLaitTotal = 0, cappuccinoTotal = 0;
@@ -40,8 +40,8 @@ function updateCoffeePrice() {
 	}
 	
 	// Update grand total
-	var totalPriceField = document.getElementById('grandTotal');
-	var grandTotal = javaTotal + auLaitTotal + cappuccinoTotal;
+	const totalPriceField = document.getElementById('grandTotal');
+	const grandTotal = javaTotal + auLaitTotal + cappuccinoTotal;
 	if (totalPriceField) {
 		totalPriceField.textContent = "$" + grandTotal.toFixed(2);
 	}
@@ -49,12 +49,12 @@ function updateCoffeePrice() {
 
 // Add event listeners to quantity inputs
 document.addEventListener('DOMContentLoaded', function() {
-	var qtyInputs = document.querySelectorAll('input[type="number"][name^="quantity-col-"]');
+	const qtyInputs = document.querySelectorAll('input[type="number"][name^="quantity-col-"]');
 	qtyInputs.forEach(function(input) {
 		input.addEventListener('input', updateCoffeePrice);
 	});
 	// Add listeners for radio buttons
-	var shotRadios = document.querySelectorAll('input[type="radio"][name^="shot-"]');
+	const shotRadios = document.querySelectorAll('input[type="radio"][name^="shot-"]');
 	shotRadios.forEach(function(radio) {
 		radio.addEventListener('change', updateCoffeePrice);
 	});
