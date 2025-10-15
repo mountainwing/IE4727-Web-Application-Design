@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>JavaJam Coffee House - Price Update</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../css/styling.css">
+        <link rel="stylesheet" href="../css/admin.css">
+        <script src="../js/userAuth.js"></script>
+        <script src="../js/priceUpdate.js"></script>
+        <script src="../js/menuPrices.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <img src="../assets/header.png" id="img" alt="header" width="500">
+                <div id="login-section">
+                    <button onclick="handleLogout()" id="logout-btn">Logout</button>
+                </div>
+            </header>
+            <div id="leftcolumn">
+                <nav>
+                    <ul>
+                        <li><a href="priceUpdate.php" class="active-page">Product <br>Price <br>Update</a></li>
+                        <li><a href="salesReport.html">Daily<br> Sales <br> Report</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div id="rightcolumn">
+                <div class="content">
+                    <h2>Coffee at JavaJam - Price Update</h2>
+                    <form id="priceUpdateForm">
+                        <table border="0" id="centered">
+                            <tr id="table-header">
+                                <th></th>
+                                <th>Dish</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr id="table-row-1">
+                                <td headers="edit">
+                                    <input type="checkbox" name="coffeeSelect" value="JustJava" id="checkbox-JustJava" onchange="handleCheckboxSelection(this)">
+                                </td>
+                                <td headers="dish" class="table-leftcol">Just Java</td>
+                                <td headers="description" class="table-rightcol">
+                                    Regular house blend, decaffeinated coffee, or flavour of the day.<br>
+                                    <strong>Endless Cup $<span id="current-price-JustJava">22.00</span></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td headers="edit">
+                                    <input type="checkbox" name="coffeeSelect" value="CafeAuLait" id="checkbox-CafeAuLait" onchange="handleCheckboxSelection(this)">
+                                </td>
+                                <td headers="dish" class="table-leftcol">Cafe au Lait</td>
+                                <td headers="description" class="table-rightcol">
+                                    House blended coffee infused into a smooth, steamed milk.<br>
+                                    <label><strong> Single $<span id="current-single-CafeAuLait">2.00</span></strong></label><br>
+                                    <label><strong> Double $<span id="current-double-CafeAuLait">3.00</span></strong></label>
+                                </td>
+                            </tr>
+                            <tr id="table-row-1">
+                                <td headers="edit">
+                                    <input type="checkbox" name="coffeeSelect" value="IcedCappucino" id="checkbox-IcedCappucino" onchange="handleCheckboxSelection(this)">
+                                </td>
+                                <td headers="dish" class="table-leftcol">Iced Cappucino</td>
+                                <td headers="description" class="table-rightcol">
+                                    Sweetened espresso blended with icy-cold milk and served in chilled glass.<br>
+                                    <label><strong> Single $<span id="current-single-IcedCappucino">4.75</span></strong></label><br>
+                                    <label><strong> Double $<span id="current-double-IcedCappucino">5.75</span></strong></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <footer>
+                <small><i>Copyright &copy; 2025 JavaJam Coffee House</i></small>
+                <br>
+                <small><i>Email: <a href="mail:hbeh001@e.ntu.edu.sg">hbeh001@e.ntu.edu.sg</a></i></small>
+            </footer>
+        </div>
+    </body>
+</html>
