@@ -1,5 +1,5 @@
 
-// Create coffee_prices table
+-- Create coffee_prices table
 CREATE TABLE IF NOT EXISTS coffee_prices (
     id INT AUTO_INCREMENT PRIMARY KEY,
     coffee_name VARCHAR(100) NOT NULL UNIQUE,

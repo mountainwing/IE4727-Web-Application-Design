@@ -68,20 +68,25 @@ h2 {
     font-family: arial, sans-serif;
 }
 
-/* Navigation bar */
-nav {
-    position: fixed;
+/* Navigation bar - scoped to the left column so it becomes a side menu */
+#leftcolumn nav {
+    position: relative; /* keep nav inside the left column */
     z-index: 1000;
     width: 100%;
     display: flex;
-    justify-content: center;
-}   
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
 nav ul {
     list-style-type: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding: 0;
+    margin: 0;
 }
 nav a {
     text-decoration: none;
@@ -102,7 +107,9 @@ nav ul li a.active-page
     box-sizing: border-box;
 } 
 #rightcolumn {
-    margin-left: 155px;
+    /* don't use an invalid float value; keep content to the right of the left column
+       by using a left margin equal (or slightly larger) than #leftcolumn's width */
+    margin-left: 200px;
     background-color: #ffffff;
     color: #340405;
     box-sizing: border-box;
