@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>JavaJam Coffee House</title>
+        <title>JavaJam Coffee House - Daily Sales Report</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="../css/styling.css">
+        <link rel="stylesheet" href="css/admin.css">
+        <script src="../js/userAuth.js"></script>
+        <script src="../js/salesReport.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -24,32 +27,36 @@
             </div>
             <div id="rightcolumn">
                 <div class="content">
-                    <h2>Coffee at JavaJam</h2>
-                    <table border="0" id="centered">
-                        <tr id="table-header">
-                            <th>Dish</th>
-                            <th>Description</th>
-                        </tr>
-                        <tr id="table-row-1">
-                            <td headers="dish" id="table-leftcol">Just Java</td>
-                            <td headers="description" id="table-rightcol">
-                                Regular house blend, decaffeinated coffee, or flavour of the day.<br>
-                                <strong>Endless Cup $22.00</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td headers="dish" id="table-leftcol">Cafe au Lait</td>
-                            <td headers="description" id="table-rightcol">
-                                House blended coffee infused into a smooth, steamed milk.<br>
-                            </td>
-                        </tr>
-                        <tr id="table-row-1">
-                            <td headers="dish" id="table-leftcol">Iced Cappucino</td>
-                            <td headers="description" id="table-rightcol">
-                                Sweetened espresso blended with icy-cold milk and served in chilled glass.<br>
-                            </td>
-                        </tr>
-
+                    <h2>Sales Report</h2>
+                    <div class="form-group">
+                        <label for="reportDate">Report Date:</label>
+                        <input type="date" id="reportDate" name="reportDate" class="date-input">
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <button onclick="generateSalesReportByProduct()" id="generate-report-by-product-btn">Generate Report</button>
+                        <span style="margin-left: 10px;">Total dollar and quantity sales by products</span>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <button onclick="generateSalesReportByCategory()" id="generate-report-by-category-btn">Generate Report</button>
+                        <span style="margin-left: 10px;">Total dollar and quantity sales by categories</span>
+                    </div>
+                    
+                    <!-- Message and Loading Areas -->
+                    <div id="loadingMessage" style="display: none; margin: 10px 0; color: #A48269;">
+                        Loading report data...
+                    </div>
+                    <div id="messageArea" style="margin: 10px 0; font-weight: bold;"></div>
+                    
+                    <!-- Sales Report Table -->
+                    <table id="salesTable" style="display: none; margin-top: 20px;" class="report-table">
+                        <thead>
+                            <tr>
+                                <!-- Headers will be dynamically set by JavaScript -->
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
                     </table>
                 </div>
             </div>

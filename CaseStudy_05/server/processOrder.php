@@ -95,20 +95,20 @@ try {
     $icedCappucinoSingleQty = 0;
     $icedCappucinoDoubleQty = 0;
     $calculatedTotal = 0.0;
-    
+
     // Parse items and extract quantities
     foreach ($items as $item) {
         $coffeeName = $item['name'];
         $shotType = isset($item['shotType']) ? $item['shotType'] : null;
         $quantity = intval($item['quantity']);
-        
+
         if ($quantity <= 0) {
             throw new Exception("Invalid quantity for " . $coffeeName);
         }
-        
+
         // Calculate price based on current database prices
         $itemPrice = 0;
-        
+
         // Map items to database columns and calculate cost
         switch ($coffeeName) {
             case 'Just Java':
@@ -156,32 +156,33 @@ try {
             default:
                 throw new Exception("Unknown coffee type: " . $coffeeName);
         }
-        
+
         $calculatedTotal += $itemPrice;
     }
-    
+
     // Validate calculated total
     if ($calculatedTotal <= 0) {
         throw new Exception("Calculated total must be greater than 0");
     }
-    
+
     // Insert order into orders table using calculated total
-    $orderStmt = $conn->prepare("INSERT INTO orders (customer_name, just_java_single_quantity, cafe_au_lait_single_quantity, cafe_au_lait_double_quantity, iced_cappucino_single_quantity, iced_cappucino_double_quantity, total_amount) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $currentDateTime = date('Y-m-d H:i:s');
+    $orderStmt = $conn->prepare("INSERT INTO orders (order_date, customer_name, just_java_single_quantity, cafe_au_lait_single_quantity, cafe_au_lait_double_quantity, iced_cappucino_single_quantity, iced_cappucino_double_quantity, total_amount, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$orderStmt) {
         throw new Exception("Failed to prepare order statement: " . $conn->error);
     }
-    
-    $orderStmt->bind_param("siiiid", $customerName, $justJavaSingleQty, $cafeAuLaitSingleQty, $cafeAuLaitDoubleQty, $icedCappucinoSingleQty, $icedCappucinoDoubleQty, $calculatedTotal);
-    
+
+    $orderStmt->bind_param("ssiiiidss", $currentDateTime, $customerName, $justJavaSingleQty, $cafeAuLaitSingleQty, $cafeAuLaitDoubleQty, $icedCappucinoSingleQty, $icedCappucinoDoubleQty, $calculatedTotal, $currentDateTime);
+
     if (!$orderStmt->execute()) {
         throw new Exception("Failed to insert order: " . $orderStmt->error);
     }
-    
+
     $orderId = $conn->insert_id;
-    
+
     // Commit transaction
     $conn->commit();
-    
+
     // Return success response
     echo json_encode([
         'success' => true,
@@ -198,11 +199,11 @@ try {
             'icedCappucinoDouble' => $icedCappucinoDoubleQty
         ]
     ]);
-    
+
 } catch (Exception $e) {
     // Rollback transaction on error
     $conn->rollback();
-    
+
     http_response_code(500);
     echo json_encode([
         'success' => false,
@@ -211,6 +212,7 @@ try {
 }
 
 // Close statements and connection
-if (isset($orderStmt)) $orderStmt->close();
+if (isset($orderStmt))
+    $orderStmt->close();
 $conn->close();
 ?>

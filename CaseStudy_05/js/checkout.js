@@ -2,75 +2,66 @@
 
 // Function to collect order data and process checkout
 async function processCheckout() {
-    try {
-        // Check if there are items in the order first
-        const orderItems = collectOrderItems();
-        
-        if (orderItems.length === 0) {
-            alert('Please add items to your order before checking out.');
-            return;
-        }
-        
-        // Calculate total amount
-        const totalAmount = calculateTotalAmount(orderItems);
-        
-        if (totalAmount <= 0) {
-            alert('Order total must be greater than $0.00');
-            return;
-        }
-        
-        // Prompt for customer name
-        const customerName = prompt('Please enter your name:');
-        if (!customerName || customerName.trim() === '') {
-            alert('Name is required to place an order.');
-            return;
-        }
-        
-        // Prepare order data (total will be calculated server-side)
-        const orderData = {
-            customerName: customerName.trim(),
-            items: orderItems
-        };
-        
-        console.log('Processing order:', orderData);
-        
-        // Disable checkout button during processing
-        const checkoutBtn = document.getElementById('checkout-btn');
-        const originalText = checkoutBtn.textContent;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = 'Processing...';
-        
-        // Send order to server
-        const response = await fetch('server/processOrder.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            // Show success message using server-calculated total
-            const serverTotal = result.calculatedTotal || result.orderDetails.total;
-            alert(`Order placed successfully!\n\nOrder ID: ${result.orderId}\nCustomer: ${customerName.trim()}\nTotal: $${serverTotal.toFixed(2)}\n\nThank you for your order!`);
-            
-            // Clear the order form
-            clearOrder();
-        } else {
-            alert(`Error placing order: ${result.error}`);
-        }
-        
-    } catch (error) {
-        console.error('Checkout error:', error);
-        alert('An error occurred while processing your order. Please try again.');
-    } finally {
-        // Re-enable checkout button
-        const checkoutBtn = document.getElementById('checkout-btn');
-        checkoutBtn.disabled = false;
-        checkoutBtn.textContent = 'Checkout';
+
+    // Check if there are items in the order first
+    const orderItems = collectOrderItems();
+    
+    if (orderItems.length === 0) {
+        alert('Please add items to your order before checking out.');
+        return;
     }
+    
+    // Calculate total amount
+    const totalAmount = calculateTotalAmount(orderItems);
+    
+    if (totalAmount <= 0) {
+        alert('Order total must be greater than $0.00');
+        return;
+    }
+    
+    // Prompt for customer name
+    const customerName = prompt('Please enter your name:');
+    if (!customerName || customerName.trim() === '') {
+        alert('Name is required to place an order.');
+        return;
+    }
+    
+    // Prepare order data (total will be calculated server-side)
+    const orderData = {
+        customerName: customerName.trim(),
+        items: orderItems
+    };
+    
+    console.log('Processing order:', orderData);
+    
+    // Disable checkout button during processing
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const originalText = checkoutBtn.textContent;
+    checkoutBtn.disabled = true;
+    checkoutBtn.textContent = 'Processing...';
+    
+    // Send order to server
+    const response = await fetch('server/processOrder.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+        // Show success message using server-calculated total
+        const serverTotal = result.calculatedTotal || result.orderDetails.total;
+        alert(`Order placed successfully!\n\nOrder ID: ${result.orderId}\nCustomer: ${customerName.trim()}\nTotal: $${serverTotal.toFixed(2)}\n\nThank you for your order!`);
+        
+        // Clear the order form
+        clearOrder();
+    } else {
+        alert(`Error placing order: ${result.error}`);
+    }
+        
 }
 
 // Function to collect current order items from the form
