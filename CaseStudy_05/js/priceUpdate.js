@@ -22,130 +22,156 @@ function handleCheckboxSelection(selectedCheckbox) {
 
 // Prompt user to update prices using alert boxes
 async function promptPriceUpdate(coffeeType) {
-    try {
-        // Load current prices first
-        const response = await fetch('../server/menuPrices.php');
-        const data = await response.json();
+
+    // Load current prices first
+    const response = await fetch('../server/menuPrices.php');
+    const data = await response.json();
+    
+    if (data.error) {
+        alert('Error loading current prices: ' + data.error);
+        return;
+    }
+    
+    let updateData = {
+        coffeeType: coffeeType
+    };
+    
+    // Handle different coffee types
+    if (coffeeType === 'JustJava') {
+        const currentPrice = data.singlePrices?.JustJava || 0;
+        const newPrice = prompt(`Update price for Just Java\nCurrent price: $${currentPrice.toFixed(2)}\n\nEnter new price:`);
         
-        if (data.error) {
-            alert('Error loading current prices: ' + data.error);
+        if (newPrice === null) {
+            // User cancelled
+            document.getElementById('checkbox-JustJava').checked = false;
             return;
         }
         
-        let updateData = {
-            coffeeType: coffeeType
-        };
-        
-        // Handle different coffee types
-        if (coffeeType === 'JustJava') {
-            const currentPrice = data.singlePrices?.JustJava || 22.00;
-            const newPrice = prompt(`Update price for Just Java\nCurrent price: $${currentPrice.toFixed(2)}\n\nEnter new price:`);
-            
-            if (newPrice === null) {
-                // User cancelled
-                document.getElementById('checkbox-JustJava').checked = false;
-                return;
-            }
-            
-            const priceValue = parseFloat(newPrice);
-            if (isNaN(priceValue) || priceValue <= 0) {
-                alert('Please enter a valid price greater than 0');
-                document.getElementById('checkbox-JustJava').checked = false;
-                return;
-            }
-            
-            updateData.singlePrice = priceValue;
-            
-        } else {
-            // For Cafe au Lait and Iced Cappucino
-            const currentSingle = data.singlePrices?.[coffeeType] || 0;
-            const currentDouble = data.doublePrices?.[coffeeType] || 0;
-            const coffeeName = coffeeType.replace(/([A-Z])/g, ' $1').trim();
-            
-            const newSingle = prompt(`Update prices for ${coffeeName}\nCurrent Single: $${currentSingle.toFixed(2)}\nCurrent Double: $${currentDouble.toFixed(2)}\n\nEnter new Single price:`);
-            
-            if (newSingle === null) {
-                // User cancelled
-                document.getElementById(`checkbox-${coffeeType}`).checked = false;
-                return;
-            }
-            
-            const singleValue = parseFloat(newSingle);
-            if (isNaN(singleValue) || singleValue <= 0) {
-                alert('Please enter a valid price greater than 0');
-                document.getElementById(`checkbox-${coffeeType}`).checked = false;
-                return;
-            }
-            
-            const newDouble = prompt(`Enter new Double price for ${coffeeName}:`);
-            
-            if (newDouble === null) {
-                // User cancelled
-                document.getElementById(`checkbox-${coffeeType}`).checked = false;
-                return;
-            }
-            
-            const doubleValue = parseFloat(newDouble);
-            if (isNaN(doubleValue) || doubleValue <= 0) {
-                alert('Please enter a valid price greater than 0');
-                document.getElementById(`checkbox-${coffeeType}`).checked = false;
-                return;
-            }
-            
-            updateData.singlePrice = singleValue;
-            updateData.doublePrice = doubleValue;
+        const priceValue = parseFloat(newPrice);
+        if (isNaN(priceValue) || priceValue <= 0) {
+            alert('Please enter a valid price greater than 0');
+            document.getElementById('checkbox-JustJava').checked = false;
+            return;
         }
         
-        // Send update request to server
-        await updatePrices(updateData);
+        updateData.singlePrice = priceValue;
         
-    } catch (error) {
-        console.error('Error in price update:', error);
-        alert('Error loading current prices. Please try again.');
-        document.getElementById(`checkbox-${coffeeType}`).checked = false;
+    } else {
+        // For Cafe au Lait and Iced Cappucino
+        const currentSingle = data.singlePrices?.[coffeeType] || 0;
+        const currentDouble = data.doublePrices?.[coffeeType] || 0;
+        const coffeeName = coffeeType.replace(/([A-Z])/g, ' $1').trim();
+        
+        const newSingle = prompt(`Update prices for ${coffeeName}\nCurrent Single: $${currentSingle.toFixed(2)}\nCurrent Double: $${currentDouble.toFixed(2)}\n\nEnter new Single price:`);
+        
+        if (newSingle === null) {
+            // User cancelled
+            document.getElementById(`checkbox-${coffeeType}`).checked = false;
+            return;
+        }
+        
+        const singleValue = parseFloat(newSingle);
+        if (isNaN(singleValue) || singleValue <= 0) {
+            alert('Please enter a valid price greater than 0');
+            document.getElementById(`checkbox-${coffeeType}`).checked = false;
+            return;
+        }
+        
+        const newDouble = prompt(`Enter new Double price for ${coffeeName}:`);
+        
+        if (newDouble === null) {
+            // User cancelled
+            document.getElementById(`checkbox-${coffeeType}`).checked = false;
+            return;
+        }
+        
+        const doubleValue = parseFloat(newDouble);
+        if (isNaN(doubleValue) || doubleValue <= 0) {
+            alert('Please enter a valid price greater than 0');
+            document.getElementById(`checkbox-${coffeeType}`).checked = false;
+            return;
+        }
+        
+        updateData.singlePrice = singleValue;
+        updateData.doublePrice = doubleValue;
     }
+    
+    // Send update request to server
+    await updatePrices(updateData);
 }
 
 // Handle price update requests to server
 async function updatePrices(updateData) {
-    try {
-        const response = await fetch('../server/updatePrices.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updateData)
-        });
+    const response = await fetch('../server/updatePrices.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updateData)
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+        // Update the displayed prices immediately
+        updateDisplayedPrices(updateData.coffeeType, updateData);
         
-        const result = await response.json();
+        // Show success message
+        alert('Prices updated successfully!');
         
-        if (result.success) {
-            alert('Prices updated successfully!');
-            updateDisplayedPrices(updateData.coffeeType, updateData);
-            
-            // Reset checkbox
-            document.getElementById(`checkbox-${updateData.coffeeType}`).checked = false;
-        } else {
-            alert(`Error updating prices: ${result.error}`);
-            document.getElementById(`checkbox-${updateData.coffeeType}`).checked = false;
-        }
-    } catch (error) {
-        console.error('Error updating prices:', error);
-        alert('Error updating prices. Please try again.');
+        // Reset checkbox
+        document.getElementById(`checkbox-${updateData.coffeeType}`).checked = false;
+        
+        // Optional: Also refresh the entire page's price data to ensure consistency
+        setTimeout(() => {
+            loadInitialPrices();
+        }, 500);
+    } else {
+        alert(`Error updating prices: ${result.error}`);
         document.getElementById(`checkbox-${updateData.coffeeType}`).checked = false;
     }
 }
 
 // Update the displayed prices in the UI
 function updateDisplayedPrices(coffeeType, newPrices) {
+    console.log('Updating displayed prices for:', coffeeType, newPrices); // Debug log
+    
     if (coffeeType === 'JustJava') {
-        document.getElementById('current-price-JustJava').textContent = newPrices.singlePrice.toFixed(2);
+        const singleElement = document.getElementById('current-price-JustJava');
+        if (singleElement) {
+            singleElement.textContent = newPrices.singlePrice.toFixed(2);
+            console.log('Updated Just Java price to:', newPrices.singlePrice.toFixed(2));
+        } else {
+            console.error('Element not found: current-price-JustJava');
+        }
     } else if (coffeeType === 'CafeAuLait') {
-        document.getElementById('current-single-CafeAuLait').textContent = newPrices.singlePrice.toFixed(2);
-        document.getElementById('current-double-CafeAuLait').textContent = newPrices.doublePrice.toFixed(2);
+        const singleElement = document.getElementById('current-single-CafeAuLait');
+        const doubleElement = document.getElementById('current-double-CafeAuLait');
+        
+        if (singleElement && doubleElement) {
+            singleElement.textContent = newPrices.singlePrice.toFixed(2);
+            doubleElement.textContent = newPrices.doublePrice.toFixed(2);
+            console.log('Updated CafeAuLait prices to:', newPrices.singlePrice.toFixed(2), newPrices.doublePrice.toFixed(2));
+        } else {
+            console.error('Elements not found for CafeAuLait:', {
+                single: !!singleElement,
+                double: !!doubleElement
+            });
+        }
     } else if (coffeeType === 'IcedCappucino') {
-        document.getElementById('current-single-IcedCappucino').textContent = newPrices.singlePrice.toFixed(2);
-        document.getElementById('current-double-IcedCappucino').textContent = newPrices.doublePrice.toFixed(2);
+        const singleElement = document.getElementById('current-single-IcedCappucino');
+        const doubleElement = document.getElementById('current-double-IcedCappucino');
+        
+        if (singleElement && doubleElement) {
+            singleElement.textContent = newPrices.singlePrice.toFixed(2);
+            doubleElement.textContent = newPrices.doublePrice.toFixed(2);
+            console.log('Updated IcedCappucino prices to:', newPrices.singlePrice.toFixed(2), newPrices.doublePrice.toFixed(2));
+        } else {
+            console.error('Elements not found for IcedCappucino:', {
+                single: !!singleElement,
+                double: !!doubleElement
+            });
+        }
     }
 }
 

@@ -9,42 +9,50 @@ let currentPrices = {
 async function loadMenuPrices() {
     const statusElement = document.getElementById('price-status');
     
-    try {
-        if (statusElement) statusElement.textContent = 'Loading prices...';
-        
-        const response = await fetch('server/menuPrices.php');
-        const result = await response.json();
-        
-        if (result.success) {
-            currentPrices = result.prices;
-            updateMenuDisplay();
-            if (statusElement) {
-                statusElement.textContent = `✓ Prices updated (${new Date().toLocaleTimeString()})`;
-                statusElement.style.color = '#28a745';
-                setTimeout(() => {
-                    statusElement.textContent = '';
-                }, 3000);
+    if (statusElement) statusElement.textContent = 'Loading prices...';
+    
+    // Determine the correct path based on current page location
+    const isInAdminFolder = window.location.pathname.includes('/admin/');
+    const serverPath = isInAdminFolder ? '../server/menuPrices.php' : 'server/menuPrices.php';
+    
+    console.log('Fetching from:', serverPath, '(isInAdminFolder:', isInAdminFolder, ')');
+    
+    const response = await fetch(serverPath);
+    const result = await response.json();
+    
+    console.log('Server response:', result); // Debug log
+    
+    if (result.success) {
+        // Convert the server response format to the expected format
+        currentPrices = {
+            JustJava: result.singlePrices?.JustJava || 22.00,
+            CafeAuLait: {
+                single: result.singlePrices?.CafeAuLait || 2.00,
+                double: result.doublePrices?.CafeAuLait || 3.00
+            },
+            IcedCappucino: {
+                single: result.singlePrices?.IcedCappucino || 4.75,
+                double: result.doublePrices?.IcedCappucino || 5.75
             }
-        } else {
-            console.error('Failed to load prices:', result.error);
-            updateMenuDisplay();
-            if (statusElement) {
-                statusElement.textContent = '⚠ Using default prices';
-                statusElement.style.color = '#ffc107';
-            }
-        }
-    } catch (error) {
-        console.error('Error fetching prices:', error);
+        };
         updateMenuDisplay();
         if (statusElement) {
-            statusElement.textContent = '⚠ Connection error - using default prices';
-            statusElement.style.color = '#dc3545';
+            statusElement.textContent = `Prices updated (${new Date().toLocaleTimeString()})`;
+            setTimeout(() => {
+                statusElement.textContent = '';
+            }, 3000);
         }
-    }
+    } 
 }
 
 // Update menu display with current prices
 function updateMenuDisplay() {
+    // Safety check
+    if (!currentPrices || typeof currentPrices.JustJava === 'undefined') {
+        console.error('Current prices not properly loaded:', currentPrices);
+        return;
+    }
+    
     // Store prices globally for menuUpdate.js
     window.currentPrices = currentPrices;
     

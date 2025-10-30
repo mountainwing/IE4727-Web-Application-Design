@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="./css/styling.css">
         <script src="js/menuUpdate.js"></script>
         <script src="js/menuPrices.js"></script>
+        <script src="js/checkout.js"></script>
         <script src="js/userAuth.js"></script>
     </head>
     <body>
@@ -68,7 +69,23 @@
                         </tr>
                         <tr>
                             <td colspan="3" style="text-align: right;"><strong>Total Price: </strong></td>
-                            <td id="grandTotal" style="width: 60px;">0.00</td>
+                            <td id="grandTotal" style="width: 60px;">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="padding: 20px; text-align: center;">
+                                <button type="button" id="checkout-btn" onclick="processCheckout()" 
+                                        style="background-color: #A48269; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-right: 10px; transition: background-color 0.3s;"
+                                        onmouseover="this.style.backgroundColor='#8B6B47'"
+                                        onmouseout="this.style.backgroundColor='#A48269'">
+                                    Checkout
+                                </button>
+                                <button type="button" onclick="clearOrder()" 
+                                        style="background-color: #8B4513; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background-color 0.3s;"
+                                        onmouseover="this.style.backgroundColor='#A0522D'"
+                                        onmouseout="this.style.backgroundColor='#8B4513'">
+                                    Clear Order
+                                </button>
+                            </td>
                         </tr>
                     </table>
                 </div>

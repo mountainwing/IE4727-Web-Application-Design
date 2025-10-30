@@ -51,8 +51,8 @@ while ($row = $result->fetch_assoc()) {
     }
 
     if ($coffeeKey) {
-        $singlePrices[$coffeeKey] = $row['single_price'] ? floatval($row['single_price']) : 0;
-        $doublePrices[$coffeeKey] = $row['double_price'] ? floatval($row['double_price']) : 0;
+        $singlePrices[$coffeeKey] = ($row['single_price'] !== null) ? floatval($row['single_price']) : 0;
+        $doublePrices[$coffeeKey] = ($row['double_price'] !== null) ? floatval($row['double_price']) : 0;
     }
 }
 
@@ -70,26 +70,14 @@ if (empty($singlePrices)) {
     ];
 }
 
-// Structure menu prices using separate single and double prices from database
-$menuPrices = [
-    'JustJava' => $singlePrices['JustJava'] ?? 22.00,
-    'CafeAuLait' => [
-        'single' => $singlePrices['CafeAuLait'] ?? 2.00,
-        'double' => $doublePrices['CafeAuLait'] ?? 3.00
-    ],
-    'IcedCappucino' => [
-        'single' => $singlePrices['IcedCappucino'] ?? 4.75,
-        'double' => $doublePrices['IcedCappucino'] ?? 5.75
-    ]
-];
-
+// Return the structure that JavaScript expects
 echo json_encode([
     'success' => true,
-    'prices' => $menuPrices,
+    'singlePrices' => $singlePrices,
+    'doublePrices' => $doublePrices,
     'debug' => [
         'raw_data_count' => $result->num_rows,
-        'single_prices' => $singlePrices,
-        'double_prices' => $doublePrices
+        'database_query_success' => true
     ]
 ]);
 
