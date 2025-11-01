@@ -1,0 +1,254 @@
+body {
+    font-family: Verdana, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#wrapper {
+    background-color: #E2D1B2; 
+    color: #000066;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    min-width: 320px;
+    box-sizing: border-box;
+} 
+
+header {
+    display: flex;
+    background-color: #D0B38D;
+    color: #00005D; 
+    font-size: 150%; 
+    padding: 10px 10px 10px 185px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Login section styling */
+#login-section {
+    display: flex;
+    gap: 10px;
+}
+
+#login-btn, #logout-btn {
+    background-color: #A48269;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#login-btn:hover, #logout-btn:hover {
+    background-color: #8B6B47;
+}
+
+#logout-btn {
+    background-color: #8B4513;
+}
+
+#logout-btn:hover {
+    background-color: #A0522D;
+}
+
+footer {
+    padding: 10px;
+    background-color: #D0B38D;
+    font-size: 70%;
+    text-align: center;
+    clear: right;
+    padding-bottom: 20px;
+}
+h2 {
+    color: #2C0000; 
+    font-family: arial, sans-serif;
+}
+
+/* Navigation bar - scoped to the left column so it becomes a side menu */
+#leftcolumn nav {
+    position: relative; /* keep nav inside the left column */
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+}
+nav a {
+    text-decoration: none;
+    color: #A48269;
+    font-weight: bold;
+}
+nav ul li a.active-page
+{
+    color:#5c320e;
+}
+
+/* Two columns styling */
+#leftcolumn {
+    float: left;
+    width: 180px;
+    text-align: center;
+    color: #D0B38D;
+    box-sizing: border-box;
+} 
+#rightcolumn {
+    /* don't use an invalid float value; keep content to the right of the left column
+       by using a left margin equal (or slightly larger) than #leftcolumn's width */
+    margin-left: 200px;
+    background-color: #ffffff;
+    color: #340405;
+    box-sizing: border-box;
+} 
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    #wrapper {
+        width: 98%;
+        min-width: 0;
+    }
+    #leftcolumn {
+        width: 100px;
+    }
+    .leftcol-menu {
+        width: 100px;
+    }
+    #rightcolumn {
+        margin-left: 105px;
+    }
+    header {
+        padding-left: 100px;
+        font-size: 120%;
+    }
+}
+
+@media (max-width: 700px) {
+    nav {
+        position: static;
+    }
+    #leftcolumn {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    #rightcolumn {
+        margin-left: 0;
+    }
+    header {
+        padding: 10px;
+        font-size: 110%;
+    }
+    #wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        font-size: 90%;
+    }
+    header {
+        font-size: 100%;
+        flex-direction: column;
+        padding: 8px;
+    }
+    #leftcolumn, #rightcolumn, .content {
+        width: 100%;
+        margin: 0;
+        float: none;
+        box-sizing: border-box;
+    }
+    nav ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+#img {
+    margin: auto;
+}
+#centered {
+    margin: auto;
+}
+
+/* HOME PAGE CLASSES AND IDS */
+.content {
+    padding: 20px 20px 0 20px; 
+    background-color: #F5F4DD;
+    min-height: 300px;
+} 
+#content-left {
+    float: left;
+    min-height: 160px;
+}
+
+#floatleft {
+    display: block;
+    margin: 0 auto; /* centers horizontally */
+    height: 160px;
+}
+
+#flexed {
+    display: flex;
+}
+
+#homeul {
+    list-style: none; /* remove default bullet */
+    padding-left: 30px; /* leave space for the image */
+}
+
+#homeul li {
+    background: url("../assets/cute-coffee.png") no-repeat left center;
+    background-size: 20px 20px; /* resize */
+    padding-left: 30px; /* space between image and text */
+}
+
+#address {
+    padding-left: 30px;
+}
+
+/* TABLE STYLINGS FOR MENU, MUSIC AND JOBS */
+#table-row-1{ /*for darker color rows*/
+    background-color: #D0B38D;
+    padding: 20px;
+}
+#quantity-col {
+    width: 60px;
+}
+#total-price {
+    width: 60px;
+}
+.table-leftcol, #table-leftcol {
+    text-align: center;
+    font-weight: bold;
+    font-size: 110%;
+}
+.table-rightcol, #table-rightcol {
+    padding: 10px;
+}
+#table-colspan { /*for month in Music page*/
+    text-align: left;
+    font-weight: bold;
+    font-size: 110%;
+}
+
+/* FORM STYLINGS FOR JOBS PAGE */
+#form-label {
+    text-align: right;
+}

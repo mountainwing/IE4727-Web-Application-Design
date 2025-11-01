@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>JavaJam Coffee House - Daily Sales Report</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../css/styling.css">
+        <link rel="stylesheet" href="css/admin.css">
+        <script src="../js/userAuth.js"></script>
+        <script src="../js/salesReport.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <img src="../assets/header.png" id="img" alt="header" width="500">
+                <div id="login-section">
+                    <button onclick="handleLogout()" id="logout-btn">Logout</button>
+                </div>
+
+            </header>
+            <div id="leftcolumn">
+                <nav>
+                    <ul>
+                        <li><a href="priceUpdate.html">Product <br>Price <br>Update</a></li>
+                        <li><a href="salesReport.html" class="active-page">Daily<br> Sales <br> Report</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="rightcolumn">
+                <div class="content">
+                    <h2>Sales Report</h2>
+                    <div class="form-group">
+                        <label for="reportDate">Report Date:</label>
+                        <input type="date" id="reportDate" name="reportDate" class="date-input">
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <button onclick="generateSalesReportByProduct()" id="generate-report-by-product-btn">Generate Report</button>
+                        <span style="margin-left: 10px;">Total dollar and quantity sales by products</span>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <button onclick="generateSalesReportByCategory()" id="generate-report-by-category-btn">Generate Report</button>
+                        <span style="margin-left: 10px;">Total dollar and quantity sales by categories</span>
+                    </div>
+                    
+                    <!-- Message and Loading Areas -->
+                    <div id="loadingMessage" style="display: none; margin: 10px 0; color: #A48269;">
+                        Loading report data...
+                    </div>
+                    <div id="messageArea" style="margin: 10px 0; font-weight: bold;"></div>
+                    
+                    <!-- Sales Report Table -->
+                    <table id="salesTable" style="display: none; margin-top: 20px;" class="report-table">
+                        <thead>
+                            <tr>
+                                <!-- Headers will be dynamically set by JavaScript -->
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <footer>
+                <small><i>Copyright &copy; 2025 JavaJam Coffee House</i></small>
+                <br>
+                <small><i>Email: <a href="mail:hbeh001@e.ntu.edu.sg">hbeh001@e.ntu.edu.sg</a></i></small>
+            </footer>
+        </div>
+    </body>
+</html>

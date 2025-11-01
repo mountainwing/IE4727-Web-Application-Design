@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>JavaJam Coffee House</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="./css/styling.css">
+        <script src="js/menuUpdate.js"></script>
+        <script src="js/menuPrices.js"></script>
+        <script src="js/checkout.js"></script>
+        <script src="js/userAuth.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <img src="./assets/header.png" id="img" alt="header" width="500">
+                <div id="login-section">
+                    <button onclick="handleLogin()" id="login-btn">Login</button>
+                </div>
+            </header>
+            <div id="leftcolumn">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html" class="active-page">Menu</a></li>
+                        <li><a href="Music.html">Music</a></li>
+                        <li><a href="jobs.html">Jobs</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="rightcolumn">
+                <div class="content">
+                    <h2>Coffee at JavaJam</h2>
+                    <table border="0" id="centered">
+                        <tr id="table-header">
+                            <th>Dish</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        <tr id="table-row-1">
+                            <td headers="dish" id="table-leftcol">Just Java</td>
+                            <td headers="description" id="table-rightcol">
+                                Regular house blend, decaffeinated coffee, or flavour of the day.<br>
+                                <strong>Endless Cup $22.00</strong>
+                            </td>
+                            <td><input type="number" name="quantity-col-JustJava" min="0" value="0" id="quantity-col"></td>
+                            <td id="price-JustJava" style="width: 60px;">0.00</td>
+                        </tr>
+                        <tr>
+                            <td headers="dish" id="table-leftcol">Cafe au Lait</td>
+                            <td headers="description" id="table-rightcol">
+                                House blended coffee infused into a smooth, steamed milk.<br>
+
+                                <label><input type="radio" name="shot-CafeAuLait" value="single" checked><strong> Single $2.00</strong></label>
+                                <label><input type="radio" name="shot-CafeAuLait" value="double"><strong> Double $3.00</strong></label>
+                            </td>
+                            <td><input type="number" name="quantity-col-CafeAuLait" min="0" value="0" id="quantity-col"></td>
+                            <td id="price-CafeAuLait" style="width: 60px;">0.00</td>
+                        </tr>
+                        <tr id="table-row-1">
+                            <td headers="dish" id="table-leftcol">Iced Cappucino</td>
+                            <td headers="description" id="table-rightcol">
+                                Sweetened espresso blended with icy-cold milk and served in chilled glass.<br>
+                                <label><input type="radio" name="shot-IcedCappucino" value="single" checked><strong> Single $4.75</strong></label>
+                                <label><input type="radio" name="shot-IcedCappucino" value="double"><strong> Double $5.75</strong></label>
+                            </td>
+                            <td><input type="number" name="quantity-col-IcedCappucino" min="0" value="0" id="quantity-col"></td>
+                            <td id="price-IcedCappucino" style="width: 60px;">0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: right;"><strong>Total Price: </strong></td>
+                            <td id="grandTotal" style="width: 60px;">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="padding: 20px; text-align: center;">
+                                <button type="button" id="checkout-btn" onclick="processCheckout()" 
+                                        style="background-color: #A48269; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-right: 10px; transition: background-color 0.3s;"
+                                        onmouseover="this.style.backgroundColor='#8B6B47'"
+                                        onmouseout="this.style.backgroundColor='#A48269'">
+                                    Checkout
+                                </button>
+                                <button type="button" onclick="clearOrder()" 
+                                        style="background-color: #8B4513; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background-color 0.3s;"
+                                        onmouseover="this.style.backgroundColor='#A0522D'"
+                                        onmouseout="this.style.backgroundColor='#8B4513'">
+                                    Clear Order
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <footer>
+                <small><i>Copyright &copy; 2025 JavaJam Coffee House</i></small>
+                <br>
+                <small><i>Email: <a href="mail:hbeh001@e.ntu.edu.sg">hbeh001@e.ntu.edu.sg</a></i></small>
+            </footer>
+        </div>
+    </body>
+</html>
